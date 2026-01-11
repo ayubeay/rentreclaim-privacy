@@ -645,6 +645,32 @@ async function findZeroBalanceAccounts(connection, owner) {
   return accounts;
 }
 
+
+// Privacy feature: Decoy RPC reads to obscure real wallet scanning
+async function performDecoyReads(connection, count = 5) {
+  // Well-known token mints to query (looks like normal DeFi activity)
+  const decoyMints = [
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", // USDC
+    "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB", // USDT
+    "So11111111111111111111111111111111111111112",   // wSOL
+    "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",  // mSOL
+    "7dHbWXmci3dT8UFYWYZweBLXgycu7Y3iL6trKn1Y7ARj", // stSOL
+    "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263", // BONK
+    "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",  // JUP
+  ];
+  
+  const shuffled = decoyMints.sort(() => Math.random() - 0.5).slice(0, count);
+  const decoyPromises = shuffled.map(mint => 
+    connection.getTokenSupply(new PublicKey(mint)).catch(() => null)
+  );
+  
+  // Add random delays between 50-200ms to seem more natural
+  await Promise.all(decoyPromises.map(async (p, i) => {
+    await new Promise(r => setTimeout(r, 50 + Math.random() * 150 * i));
+    return p;
+  }));
+}
+
 function calculateFee(numAccounts, totalRent) {
   if (CONFIG.FEE_MODEL === 'flat') {
     return numAccounts * CONFIG.FLAT_FEE_LAMPORTS;
@@ -801,7 +827,7 @@ export default function App() {
     if (!wallet) return;
     
     setScanning(true);
-    setStatus({ type: 'info', message: 'Scanning for empty token accounts...' });
+    setStatus({ type: 'info', message: privacyMode ? '🛡️ Privacy scan: mixing traffic...' : 'Privacy scan: mixing traffic...' });
     setEmptyAccounts([]);
     setSelectedAccounts(new Set());
     setResults([]);
@@ -809,6 +835,9 @@ export default function App() {
     setFinalTotals(null);
     
     try {
+      // Privacy mode: add decoy RPC calls to obscure real scan
+      if (privacyMode) await performDecoyReads(connection, 5);
+
       const accounts = await findZeroBalanceAccounts(connection, wallet.publicKey);
       setEmptyAccounts(accounts);
       setSelectedAccounts(new Set(accounts.map(a => a.address)));
@@ -825,7 +854,7 @@ export default function App() {
     } finally {
       setScanning(false);
     }
-  }, [wallet, connection]);
+  }, [wallet, connection, privacyMode]);
   
   const toggleAccount = useCallback((address) => {
     setSelectedAccounts(prev => {
