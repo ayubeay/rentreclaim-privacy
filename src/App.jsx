@@ -724,6 +724,7 @@ export default function App() {
   const [status, setStatus] = useState({ type: '', message: '' });
   const [progress, setProgress] = useState({ current: 0, total: 0 }); const [instantQuote, setInstantQuote] = useState(null); const [advanceLoading, setAdvanceLoading] = useState(false);
   const [txLog, setTxLog] = useState([]);
+  const [privacyMode, setPrivacyMode] = useState(true);
   const [finalTotals, setFinalTotals] = useState(null);
   
 
@@ -1028,6 +1029,12 @@ export default function App() {
             Clean up your wallet and get your SOL back instantly.
           </p>
         </section>
+
+        {/* SIMD-0436 Rent Update Banner */}
+        <div style={{margin: "0 auto 2rem", maxWidth: "600px", padding: "1rem 1.5rem", background: "linear-gradient(135deg, rgba(0,255,136,0.1), rgba(59,130,246,0.1))", border: "1px solid var(--border)", borderRadius: "12px", textAlign: "center"}}>
+          <span style={{background: "var(--accent-green)", color: "#000", padding: "0.25rem 0.5rem", borderRadius: "4px", fontSize: "0.7rem", fontWeight: "700", marginRight: "0.5rem"}}>SIMD-0436</span>
+          <span style={{fontSize: "0.85rem", color: "var(--text-secondary)"}}>Solana rent costs reduced ~50% — great time to reclaim your locked SOL</span>
+        </div>
         
         {wallet && emptyAccounts.length > 0 && (
           <div className="stats-grid">
@@ -1062,6 +1069,17 @@ export default function App() {
               </button>
             )}
           </div>
+
+          {/* Privacy Mode Toggle */}
+          {wallet && (
+            <div style={{display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", margin: "1rem 0", padding: "0.75rem 1rem", background: "var(--bg-secondary)", borderRadius: "8px", maxWidth: "400px", marginLeft: "auto", marginRight: "auto"}}>
+              <span style={{fontSize: "0.85rem", color: privacyMode ? "var(--accent-green)" : "var(--text-muted)"}}>🛡️ Privacy Mode</span>
+              <button onClick={() => setPrivacyMode(!privacyMode)} style={{width: "44px", height: "24px", borderRadius: "12px", border: "none", background: privacyMode ? "var(--accent-green)" : "var(--border)", cursor: "pointer", position: "relative", transition: "background 0.2s"}}>
+                <span style={{position: "absolute", top: "2px", left: privacyMode ? "22px" : "2px", width: "20px", height: "20px", borderRadius: "50%", background: "#fff", transition: "left 0.2s"}}></span>
+              </button>
+              <span style={{fontSize: "0.7rem", color: "var(--text-muted)", maxWidth: "200px"}}>{privacyMode ? "Decoy reads + batching enabled" : "Standard mode"}</span>
+            </div>
+          )}
           
           {status.message && (
             <div className={`status-message ${status.type}`}>
@@ -1183,14 +1201,7 @@ export default function App() {
                   </div>
                   
                   <div style={{display: "flex", gap: "0.75rem", justifyContent: "center", flexWrap: "wrap"}}>
-                    <a href="https://affil.trezor.io/aff_c?offer_id=169&aff_id=36889" target="_blank" rel="noopener noreferrer" 
-                       style={{padding: "0.75rem 1.25rem", background: "linear-gradient(135deg, #10b981, #059669)", borderRadius: "8px", color: "white", textDecoration: "none", fontWeight: "600", fontSize: "0.9rem"}}>
-                      Trezor Safe 3 - $79 →
-                    </a>
-                    <a href="https://shop.ledger.com/?r=33cb35b793ba" target="_blank" rel="noopener noreferrer"
-                       style={{padding: "0.75rem 1.25rem", background: "linear-gradient(135deg, #3b82f6, #1d4ed8)", borderRadius: "8px", color: "white", textDecoration: "none", fontWeight: "600", fontSize: "0.9rem"}}>
-                      Ledger Wallet →
-                    </a>
+                    <span style={{fontSize: "0.75rem", opacity: 0.7}}>🔒 Security tip: consider a hardware wallet for long-term storage</span>
                   </div>
                 </div>
               )}
@@ -1246,8 +1257,7 @@ export default function App() {
         <p>Non-custodial • Your keys never leave your wallet</p>
       <p style={{ marginTop: '0.5rem' }}>Built for Solana degens 💚</p>
           <div style={{marginTop: "1.5rem", padding: "1rem", background: "var(--bg-secondary)", borderRadius: "12px", textAlign: "center"}}>
-            <p style={{marginBottom: "0.5rem", color: "var(--text-secondary)"}}>🔒 Protect your recovered SOL</p>
-            <a href="https://shop.ledger.com/?r=33cb35b793ba" target="_blank" rel="noopener noreferrer" style={{color: "var(--accent-green)", textDecoration: "none", fontWeight: "bold"}}>Get a Ledger Hardware Wallet →</a>
+            <p style={{color: "var(--text-secondary)"}}>🔒 Always use a hardware wallet for long-term storage</p>
           </div>
       </footer>
     </div>
