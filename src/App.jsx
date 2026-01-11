@@ -938,6 +938,12 @@ export default function App() {
       
       for (let i = 0; i < batches.length; i++) {
         const batch = batches[i];
+        
+        // Privacy mode: random delay + decoy reads between batches
+        if (privacyMode && i > 0) {
+          await new Promise(r => setTimeout(r, 500 + Math.random() * 1000));
+          await performDecoyReads(connection, 2);
+        }
         setStatus({ type: 'info', message: `Processing batch ${i + 1}/${batches.length}...` });
         setProgress({ current: i, total: batches.length });
         
@@ -1017,7 +1023,7 @@ export default function App() {
     } finally {
       setCleaning(false);
     }
-  }, [wallet, connection, emptyAccounts, selectedAccounts, totals, scanAccounts]);
+  }, [wallet, connection, emptyAccounts, selectedAccounts, totals, scanAccounts, privacyMode]);
   
   const downloadResults = useCallback(() => {
     if (results.length === 0 || !finalTotals) return;
