@@ -751,6 +751,7 @@ export default function App() {
   const [progress, setProgress] = useState({ current: 0, total: 0 }); const [instantQuote, setInstantQuote] = useState(null); const [advanceLoading, setAdvanceLoading] = useState(false);
   const [txLog, setTxLog] = useState([]);
   const [privacyMode, setPrivacyMode] = useState(true);
+  const [showPrivacyInfo, setShowPrivacyInfo] = useState(false);
   const [finalTotals, setFinalTotals] = useState(null);
   
 
@@ -1108,7 +1109,7 @@ export default function App() {
           {/* Privacy Mode Toggle */}
           {wallet && (
             <div style={{display: "flex", alignItems: "center", justifyContent: "center", gap: "0.75rem", margin: "1rem 0", padding: "0.75rem 1rem", background: "var(--bg-secondary)", borderRadius: "8px", maxWidth: "400px", marginLeft: "auto", marginRight: "auto"}}>
-              <span style={{fontSize: "0.85rem", color: privacyMode ? "var(--accent-green)" : "var(--text-muted)"}}>🛡️ Privacy Mode</span>
+              <span style={{fontSize: "0.85rem", color: privacyMode ? "var(--accent-green)" : "var(--text-muted)"}}>🛡️ Privacy Mode</span><button onClick={() => setShowPrivacyInfo(true)} style={{background: "none", border: "none", color: "var(--text-muted)", cursor: "pointer", fontSize: "0.85rem", padding: "0 0.25rem"}}>ⓘ</button>
               <button onClick={() => setPrivacyMode(!privacyMode)} style={{width: "44px", height: "24px", borderRadius: "12px", border: "none", background: privacyMode ? "var(--accent-green)" : "var(--border)", cursor: "pointer", position: "relative", transition: "background 0.2s"}}>
                 <span style={{position: "absolute", top: "2px", left: privacyMode ? "22px" : "2px", width: "20px", height: "20px", borderRadius: "50%", background: "#fff", transition: "left 0.2s"}}></span>
               </button>
@@ -1295,6 +1296,23 @@ export default function App() {
             <p style={{color: "var(--text-secondary)"}}>🔒 Always use a hardware wallet for long-term storage</p>
           </div>
       </footer>
+
+      {/* Privacy Info Modal */}
+      {showPrivacyInfo && (
+        <div style={{position: "fixed", inset: 0, background: "rgba(0,0,0,0.8)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 1000}} onClick={() => setShowPrivacyInfo(false)}>
+          <div style={{background: "var(--bg-card)", borderRadius: "16px", padding: "2rem", maxWidth: "500px", margin: "1rem", border: "1px solid var(--border)"}} onClick={e => e.stopPropagation()}>
+            <h3 style={{fontSize: "1.25rem", fontWeight: "bold", marginBottom: "1rem", color: "var(--accent-green)"}}>🛡️ Privacy Mode Features</h3>
+            <div style={{display: "flex", flexDirection: "column", gap: "1rem", color: "var(--text-secondary)", fontSize: "0.9rem"}}>
+              <div><strong style={{color: "var(--text-primary)"}}>Decoy RPC Reads</strong><br/>Queries popular token mints (USDC, USDT, wSOL, etc.) to mix your scan with normal DeFi traffic, making it harder to identify rent reclaim activity.</div>
+              <div><strong style={{color: "var(--text-primary)"}}>Random Delays</strong><br/>Adds 500-1500ms random pauses between transaction batches to break timing patterns that could link your transactions.</div>
+              <div><strong style={{color: "var(--text-primary)"}}>Traffic Mixing</strong><br/>Additional decoy reads between batches further obscure your actual account closure operations.</div>
+              <div style={{padding: "0.75rem", background: "var(--bg-secondary)", borderRadius: "8px", fontSize: "0.8rem"}}><strong>Why Privacy?</strong> Empty token accounts can reveal your trading history. Privacy mode helps obscure this activity from RPC observers.</div>
+            </div>
+            <button onClick={() => setShowPrivacyInfo(false)} style={{marginTop: "1.5rem", width: "100%", padding: "0.75rem", background: "var(--accent-green)", color: "#000", border: "none", borderRadius: "8px", fontWeight: "600", cursor: "pointer"}}>Got it</button>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }
