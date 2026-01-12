@@ -2,7 +2,6 @@ import { useState } from "react";
 
 const CONFIG = {
   appUrl: "/app",
-  ledgerUrl: "https://shop.ledger.com/pages/ledger-nano-s-plus?r=37a0033ac8f8",
 };
 
 export default function Landing() {
@@ -57,6 +56,11 @@ export default function Landing() {
                 <div className="flex items-center gap-2"><svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>Non-custodial</div>
                 <div className="flex items-center gap-2"><svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>Instant recovery</div>
                 <div className="flex items-center gap-2"><svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>No seed phrase needed</div>
+              </div>
+              {/* SIMD-0436 Banner */}
+              <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20">
+                <span className="px-2 py-0.5 rounded bg-emerald-500 text-black text-xs font-bold">SIMD-0436</span>
+                <span className="text-sm text-white/70">Solana rent costs reduced ~50% — great time to reclaim!</span>
               </div>
             </div>
             <div className="relative">
@@ -252,25 +256,24 @@ export default function Landing() {
         </div>
       </section>
 
+
+      {/* Security Tip Section */}
       <section className="py-12 border-t border-white/5">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="rounded-2xl border border-purple-500/20 bg-purple-500/5 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="rounded-2xl border border-emerald-500/20 bg-emerald-500/5 p-6 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-purple-500/20 grid place-content-center">
-                <svg className="w-6 h-6 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+              <div className="w-12 h-12 rounded-xl bg-emerald-500/20 grid place-content-center">
+                <svg className="w-6 h-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
               </div>
               <div>
-                <h4 className="font-semibold text-white">Protect Your Recovered SOL</h4>
-                <p className="text-sm text-white/60">Keep your crypto safe with a Ledger hardware wallet</p>
+                <h4 className="font-semibold text-white">🔒 Security Tip</h4>
+                <p className="text-sm text-white/60">Consider a hardware wallet for long-term SOL storage</p>
               </div>
             </div>
-            <a href={CONFIG.ledgerUrl} target="_blank" rel="noopener noreferrer" className="px-5 py-2.5 rounded-xl bg-purple-500 text-white font-semibold hover:bg-purple-400 transition inline-flex items-center gap-2 whitespace-nowrap">
-              Get a Ledger
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
-            </a>
           </div>
         </div>
       </section>
+
 
       <footer className="border-t border-white/5 py-8">
         <div className="max-w-6xl mx-auto px-4">
