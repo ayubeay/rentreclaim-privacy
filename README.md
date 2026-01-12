@@ -72,3 +72,67 @@ MIT
 ---
 
 Built with 💚 by a scam survivor, for the Solana community.
+
+## 🧠 Threat Model & Limitations
+
+**What Privacy Mode protects against**
+- Correlation of your *scan/cleanup workflow* by RPC observers
+- Simple timing analysis (batchy patterns) via randomized delays
+- Fingerprinting your cleanup traffic by mixing in popular mint reads
+
+**What it does *not* hide**
+- On-chain facts: your wallet still signs transactions; closes are public
+- Sophisticated multi-signal correlation (e.g., IP + timing + mempool)
+- Your identity if you reuse a publicly-known wallet
+
+**Best practices**
+- Use a reputable RPC; consider rotating endpoints
+- Consider a privacy-friendly network path (VPN; avoid public Wi-Fi)
+- Review every transaction in the wallet popup before signing
+
+---
+
+## 💵 Pricing Details
+
+**Instant Clean-Up (recommended)**
+- We cover network fees
+- You keep **80%** of recovered rent (20% fee)
+
+**Advanced Clean-Up**
+- You pay network fees directly
+- Lower per-account fee (flat rate shown in-app)
+- Best for power users optimizing cost
+
+> Rent per empty token account is ~0.002 SOL. Final recovery shown in preview before signing.
+
+---
+
+## ✅ Supported Wallets & Browsers
+
+- **Wallets:** Phantom, Solflare, Backpack (any Wallet Adapter-compatible)
+- **Browsers:** Chrome, Brave, Edge, Firefox (desktop)
+- *Note:* Mobile in-app browsers may have wallet popup issues
+
+---
+
+## 🧪 Safety Checklist
+
+- ✅ Only **zero-balance** accounts targeted
+- ✅ Exact accounts & expected SOL shown before signing
+- ✅ Transactions built **locally**, signed in wallet popup
+- ✅ We **never** ask for seed phrase or private key
+- ⚠️ If any site asks for your seed phrase = **SCAM**
+
+---
+
+## 📦 Submission Checklist
+
+- [x] README updated with privacy features
+- [x] Live demo: https://www.rentreclaim.xyz
+- [x] Privacy Mode with explainer modal
+- [x] SIMD-0436 educational banner
+- [x] No affiliate links (neutral security tip only)
+- [x] `PRIVACY.md` linked
+- [ ] 60-sec demo video
+- [ ] Screenshots in `docs/`
+- [ ] Version tag (e.g., `v0.1.0-hackathon`)
