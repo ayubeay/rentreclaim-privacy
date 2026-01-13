@@ -43,7 +43,7 @@ export default function Landing() {
                 Recover Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-blue-400">Hidden SOL</span>
               </h1>
               <p className="mt-6 text-lg text-white/60 max-w-xl leading-relaxed">
-                Every empty token account holds ~0.002 SOL in rent. Clean up your wallet and get your SOL back instantly.
+                Every empty token account holds ~0.001 SOL in rent (was ~0.002 before SIMD-0436). Clean up your wallet and get your SOL back instantly.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <a href={CONFIG.appUrl} className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 text-black font-semibold hover:opacity-90 transition inline-flex items-center justify-center gap-2 text-lg">
@@ -60,7 +60,7 @@ export default function Landing() {
               {/* SIMD-0436 Banner */}
               <div className="mt-6 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500/10 to-blue-500/10 border border-emerald-500/20">
                 <span className="px-2 py-0.5 rounded bg-emerald-500 text-black text-xs font-bold">SIMD-0436</span>
-                <span className="text-sm text-white/70">Solana rent costs reduced ~50% — great time to reclaim!</span>
+                <span className="text-sm text-white/70">Solana halved rent costs (~50%) — great time to reclaim!</span>
               </div>
             </div>
             <div className="relative">
@@ -81,21 +81,21 @@ export default function Landing() {
                   <tbody className="text-white">
                     <tr className="border-t border-white/10">
                       <td className="py-3">25</td>
+                      <td className="py-3">0.026</td>
+                      <td className="py-3 text-white/50">0.005</td>
+                      <td className="py-3 text-emerald-400 font-semibold">0.021</td>
+                    </tr>
+                    <tr className="border-t border-white/10">
+                      <td className="py-3">50</td>
                       <td className="py-3">0.051</td>
                       <td className="py-3 text-white/50">0.010</td>
                       <td className="py-3 text-emerald-400 font-semibold">0.041</td>
                     </tr>
                     <tr className="border-t border-white/10">
-                      <td className="py-3">50</td>
+                      <td className="py-3">100</td>
                       <td className="py-3">0.102</td>
                       <td className="py-3 text-white/50">0.020</td>
                       <td className="py-3 text-emerald-400 font-semibold">0.082</td>
-                    </tr>
-                    <tr className="border-t border-white/10">
-                      <td className="py-3">100</td>
-                      <td className="py-3">0.204</td>
-                      <td className="py-3 text-white/50">0.041</td>
-                      <td className="py-3 text-emerald-400 font-semibold">0.163</td>
                     </tr>
                   </tbody>
                 </table>
