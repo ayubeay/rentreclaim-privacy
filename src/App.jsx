@@ -1061,7 +1061,7 @@ export default function App() {
             Recover Your <span className="highlight">Locked SOL</span>
           </h1>
           <p className="hero-subtitle">
-            Every empty token account holds ~0.002 SOL in rent. 
+            Every empty token account holds ~0.001 SOL in rent (was ~0.002 before SIMD-0436). 
             Clean up your wallet and get your SOL back instantly.
           </p>
         </section>
@@ -1069,7 +1069,7 @@ export default function App() {
         {/* SIMD-0436 Rent Update Banner */}
         <div style={{margin: "0 auto 2rem", maxWidth: "600px", padding: "1rem 1.5rem", background: "linear-gradient(135deg, rgba(0,255,136,0.1), rgba(59,130,246,0.1))", border: "1px solid var(--border)", borderRadius: "12px", textAlign: "center"}}>
           <span style={{background: "var(--accent-green)", color: "#000", padding: "0.25rem 0.5rem", borderRadius: "4px", fontSize: "0.7rem", fontWeight: "700", marginRight: "0.5rem"}}>SIMD-0436</span>
-          <span style={{fontSize: "0.85rem", color: "var(--text-secondary)"}}>Solana rent costs reduced ~50% — great time to reclaim your locked SOL</span>
+          <span style={{fontSize: "0.85rem", color: "var(--text-secondary)"}}>Solana halved rent costs (~50%) — great time to reclaim!</span>
         </div>
         
         {wallet && emptyAccounts.length > 0 && (
