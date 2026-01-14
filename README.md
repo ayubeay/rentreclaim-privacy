@@ -1,25 +1,17 @@
-# RentReclaim + Private Send
+# RentReclaim Privacy Suite
 
-🏆 **Solana Hackathon Submission** - Open Track & Private Payments Track
+🏆 **Solana Privacy Hackathon Submission** - Entering ALL 3 Tracks!
 
 ## Live Demo
 - **Main App**: https://www.rentreclaim.xyz
 - **Private Send**: https://www.rentreclaim.xyz/send
 - **Decrypt Tool**: https://www.rentreclaim.xyz/decrypt
+- **Stealth Launch**: https://www.rentreclaim.xyz/launch
 
-## What We Built
+## Tracks & Features
 
-### 1. RentReclaim (Open Track)
-Recover SOL locked in empty token accounts. Every empty token account holds ~0.002 SOL in rent - we help you reclaim it.
-
-**Features:**
-- 🔍 Free wallet scan
-- ⚡ One-click batch recovery
-- 🔒 Non-custodial (no seed phrase needed)
-- 💰 20% fee only on successful recovery
-
-### 2. Private Send (Private Payments Track)
-Privacy-enhanced transfers for SOL and SPL tokens (USDC, USDT, BONK, JUP).
+### 🔒 Track 1: Private Payments ($15K)
+**Private Send** - Privacy-enhanced transfers for SOL and SPL tokens
 
 **Privacy Features:**
 - 🔀 **Split Transfers** - Payment divided into randomized smaller amounts
@@ -36,45 +28,100 @@ Privacy-enhanced transfers for SOL and SPL tokens (USDC, USDT, BONK, JUP).
 5. Enable privacy mode
 6. Send privately
 
-### 3. Offline Decrypt Tool
-Decrypt encrypted memo payloads without internet connection.
+---
+
+### 🪄 Track 2: Private Launchpads ($15K)
+**Stealth Token Creator** - Launch tokens without revealing your wallet
+
+**Privacy Features:**
+- 🔑 **Derived Burner Wallet** - Token created by ephemeral wallet, not your main
+- 🎲 **Random or Deterministic** - Choose recoverable (signature-derived) or one-time
+- ⏱️ **Time Jitter** - Random delays between transactions
+- 🎭 **Decoy Reads** - RPC noise masks real operations
+- 🔐 **Encrypted Receipt** - Optional encrypted launch metadata
+- 🧯 **Authority Options** - Burn, transfer, or keep mint authority
+
+**How it works:**
+1. Connect wallet
+2. Configure token (name, symbol, supply, decimals)
+3. Choose stealth wallet type (Random/Deterministic)
+4. Select authority handling (Burn/Transfer/Keep)
+5. Enable privacy mode
+6. Launch! Your main wallet never appears as creator
+
+**Supports:**
+- Token Program (classic SPL)
+- Token-2022 Program
+
+---
+
+### 🧹 Track 3: Open Track ($15K)
+**RentReclaim** - Recover SOL from empty token accounts with privacy mode
 
 **Features:**
-- 🌐 Works completely offline
-- 🔑 Passphrase-protected decryption (v1)
-- 📋 Demo payload generator for testing
+- 🔍 Free wallet scan
+- ⚡ One-click batch recovery
+- 🔒 Non-custodial (no seed phrase needed)
+- 💰 20% fee only on successful recovery
+- 🛡️ **Privacy Mode** - Decoy reads + jitter during recovery
+
+---
+
+## Privacy Techniques Used
+
+| Technique | Description | Used In |
+|-----------|-------------|---------|
+| **Time Jitter** | Random delays (0.5-5s) between transactions | All features |
+| **Decoy Reads** | Random `getAccountInfo` calls to known addresses | All features |
+| **Split Transfers** | Divide payments into randomized chunks | Private Send |
+| **Derived Wallets** | Signature-derived or random burner wallets | Stealth Launch |
+| **AES-GCM Encryption** | WebCrypto encrypted memos/receipts | Send, Launch |
 
 ## Tech Stack
 - React + Vite
 - Solana Web3.js
-- SPL Token
+- SPL Token Library
 - Wallet Adapter (Phantom, Solflare)
 - WebCrypto API (AES-GCM encryption)
 - Vercel hosting
 
-## Privacy Disclaimer
-⚠️ **Obfuscation only** - amounts and addresses are still visible on-chain. This is NOT a mixer or tumbler. It adds privacy through timing obfuscation and transaction splitting.
-
-## Roadmap
-- [ ] Token-2022 full support
-- [ ] Recipient-key encryption (v2 notes)
-- [ ] Multi-destination batching
-- [ ] Mobile app
-
 ## Local Development
 ```bash
+# Clone
+git clone https://github.com/ayubeay/rentreclaim-privacy.git
+cd rentreclaim-privacy
+
+# Install
 npm install
+
+# Configure (optional - defaults to public RPC)
+echo "VITE_RPC_URL=your_rpc_url" > .env
+
+# Run
 npm run dev
+
+# Build
+npm run build
 ```
 
-## Environment Variables
-```
-VITE_RPC_URL=your_helius_rpc_url
-```
+## Deployed Contracts
+All transactions use standard Solana programs:
+- **Token Program**: `TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA`
+- **Token-2022**: `TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb`
+- **Associated Token**: `ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL`
+
+## Privacy Disclaimer
+⚠️ **Obfuscation layer, not full anonymity** - Amounts and addresses remain visible on-chain. This adds privacy through timing obfuscation, transaction splitting, and wallet indirection. This is NOT a mixer or tumbler.
+
+## Demo Video
+[Link to 3-minute demo video] <!-- Add your video link -->
+
+## Screenshots
+See `/screenshots` folder for UI captures of each feature.
 
 ## License
 MIT
 
 ---
 
-Built with ❤️ for the Solana ecosystem
+Built with ❤️ for the Solana Privacy Hackathon 2025
