@@ -78,6 +78,7 @@
 | **AES-GCM Encryption** | WebCrypto encrypted memos/receipts | Send, Launch |
 
 ## Tech Stack
+- **Helius RPC** - Fast, reliable Solana infrastructure
 - React + Vite
 - Solana Web3.js
 - SPL Token Library
