@@ -1,138 +1,80 @@
-# RentReclaim - Privacy-First Wallet Hygiene for Solana
+# RentReclaim + Private Send
 
-> Reclaim stranded SOL from empty token accounts without sharing keys or telemetry. Everything runs locally.
+🏆 **Solana Hackathon Submission** - Open Track & Private Payments Track
 
-## 🔒 Privacy Hackathon Submission
+## Live Demo
+- **Main App**: https://www.rentreclaim.xyz
+- **Private Send**: https://www.rentreclaim.xyz/send
+- **Decrypt Tool**: https://www.rentreclaim.xyz/decrypt
 
-**Track:** Privacy Tooling  
-**Problem:** Users lose funds to scammers posing as "recovery helpers" who ask for private keys  
-**Solution:** A 100% client-side tool that proves you can recover locked SOL without ever exposing keys
+## What We Built
 
-## 🎯 The Problem
+### 1. RentReclaim (Open Track)
+Recover SOL locked in empty token accounts. Every empty token account holds ~0.002 SOL in rent - we help you reclaim it.
 
-Every Solana token account holds ~0.002 SOL in rent. When you sell or transfer all tokens, that SOL stays locked. Scammers exploit this by offering "recovery services" that require your private key.
+**Features:**
+- 🔍 Free wallet scan
+- ⚡ One-click batch recovery
+- 🔒 Non-custodial (no seed phrase needed)
+- 💰 20% fee only on successful recovery
 
-**I was one of those victims.** After getting rugged, someone in Discord offered to help "recover" my funds. I gave them an old private key. They drained everything.
+### 2. Private Send (Private Payments Track)
+Privacy-enhanced transfers for SOL and SPL tokens (USDC, USDT, BONK, JUP).
 
-RentReclaim exists so no one ever has to hand over keys again.
+**Privacy Features:**
+- 🔀 **Split Transfers** - Payment divided into randomized smaller amounts
+- ⏱️ **Time Jitter** - Randomized intervals break timing patterns  
+- 🎭 **Decoy Reads** - Random RPC queries mask your activity
+- 🔐 **Encrypted Memos** - AES-GCM encrypted notes (optional)
+- 🪙 **SPL Token Support** - USDC, USDT, BONK, JUP, or any mint
 
-## ✨ Features
+**How it works:**
+1. Connect wallet (Phantom/Solflare)
+2. Select SOL or SPL token
+3. Enter destination and amount
+4. Set splits (1-25) and time window
+5. Enable privacy mode
+6. Send privately
 
-- **100% Non-Custodial** - Keys never leave your wallet
-- **Local-First** - All scanning and TX building in your browser
-- **Zero Telemetry** - No analytics, tracking, or data collection
-- **Instant Recovery** - Sign and get SOL back immediately
-- **Open Source** - Verify the code yourself
+### 3. Offline Decrypt Tool
+Decrypt encrypted memo payloads without internet connection.
 
-## 🛡️ Privacy Architecture
-```
-[Your Wallet] <--public key only--> [Browser UI]
-                                         |
-                                  [Build TX locally]
-                                         |
-                                  [Sign in wallet popup]
-                                         |
-                                  [Direct to Solana RPC]
-```
+**Features:**
+- 🌐 Works completely offline
+- 🔑 Passphrase-protected decryption (v1)
+- 📋 Demo payload generator for testing
 
-No servers. No databases. No keys exposed. Ever.
-
-## 🚀 Live Demo
-
-**https://www.rentreclaim.xyz**
-
-## 📖 How It Works
-
-1. **Connect Wallet** - Standard wallet adapter (read-only)
-2. **Scan Accounts** - Find empty token accounts holding rent
-3. **Select & Close** - Choose which accounts to reclaim
-4. **Sign & Receive** - Approve in your wallet, SOL returns instantly
-
-## 🔧 Tech Stack
-
+## Tech Stack
 - React + Vite
-- @solana/web3.js
-- Solana Wallet Adapter
-- Token Program & Token-2022 support
+- Solana Web3.js
+- SPL Token
+- Wallet Adapter (Phantom, Solflare)
+- WebCrypto API (AES-GCM encryption)
+- Vercel hosting
 
-## 📄 Privacy Statement
+## Privacy Disclaimer
+⚠️ **Obfuscation only** - amounts and addresses are still visible on-chain. This is NOT a mixer or tumbler. It adds privacy through timing obfuscation and transaction splitting.
 
-See [PRIVACY.md](./PRIVACY.md) for our full privacy commitment.
+## Roadmap
+- [ ] Token-2022 full support
+- [ ] Recipient-key encryption (v2 notes)
+- [ ] Multi-destination batching
+- [ ] Mobile app
 
-## 🏗️ Local Development
+## Local Development
 ```bash
 npm install
 npm run dev
 ```
 
-## 📜 License
+## Environment Variables
+```
+VITE_RPC_URL=your_helius_rpc_url
+```
 
+## License
 MIT
 
 ---
 
-Built with 💚 by a scam survivor, for the Solana community.
-
-## 🧠 Threat Model & Limitations
-
-**What Privacy Mode protects against**
-- Correlation of your *scan/cleanup workflow* by RPC observers
-- Simple timing analysis (batchy patterns) via randomized delays
-- Fingerprinting your cleanup traffic by mixing in popular mint reads
-
-**What it does *not* hide**
-- On-chain facts: your wallet still signs transactions; closes are public
-- Sophisticated multi-signal correlation (e.g., IP + timing + mempool)
-- Your identity if you reuse a publicly-known wallet
-
-**Best practices**
-- Use a reputable RPC; consider rotating endpoints
-- Consider a privacy-friendly network path (VPN; avoid public Wi-Fi)
-- Review every transaction in the wallet popup before signing
-
----
-
-## 💵 Pricing Details
-
-**Instant Clean-Up (recommended)**
-- We cover network fees
-- You keep **80%** of recovered rent (20% fee)
-
-**Advanced Clean-Up**
-- You pay network fees directly
-- Lower per-account fee (flat rate shown in-app)
-- Best for power users optimizing cost
-
-> Rent per empty token account is ~0.002 SOL. Final recovery shown in preview before signing.
-
----
-
-## ✅ Supported Wallets & Browsers
-
-- **Wallets:** Phantom, Solflare, Backpack (any Wallet Adapter-compatible)
-- **Browsers:** Chrome, Brave, Edge, Firefox (desktop)
-- *Note:* Mobile in-app browsers may have wallet popup issues
-
----
-
-## 🧪 Safety Checklist
-
-- ✅ Only **zero-balance** accounts targeted
-- ✅ Exact accounts & expected SOL shown before signing
-- ✅ Transactions built **locally**, signed in wallet popup
-- ✅ We **never** ask for seed phrase or private key
-- ⚠️ If any site asks for your seed phrase = **SCAM**
-
----
-
-## 📦 Submission Checklist
-
-- [x] README updated with privacy features
-- [x] Live demo: https://www.rentreclaim.xyz
-- [x] Privacy Mode with explainer modal
-- [x] SIMD-0436 educational banner
-- [x] No affiliate links (neutral security tip only)
-- [x] `PRIVACY.md` linked
-- [ ] 60-sec demo video
-- [ ] Screenshots in `docs/`
-- [ ] Version tag (e.g., `v0.1.0-hackathon`)
+Built with ❤️ for the Solana ecosystem
