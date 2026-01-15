@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom/client';
 import StealthLaunch from './StealthLaunch.jsx';
 import Learn from "./Learn.jsx";
 import PrivacyHub from "./PrivacyHub.jsx";
+import RadrDemo from "./RadrDemo.jsx";
+import PrivacyCashDemo from "./PrivacyCashDemo.jsx";
+import IncoDemo from "./IncoDemo.jsx";
+import ArciumDemo from "./ArciumDemo.jsx";
 
 // Polyfills for Solana - MUST be before any Solana imports
 import { Buffer } from 'buffer';
@@ -27,6 +31,10 @@ function Router() {
   if (path === '/launch') return <StealthLaunch />;
   if (path === "/learn") return <Learn />;
   if (path === "/privacy") return <PrivacyHub />;
+  if (path === "/radr") return <RadrDemo />;
+  if (path === "/privacycash") return <PrivacyCashDemo />;
+  if (path === "/inco") return <IncoDemo />;
+  if (path === "/arcium") return <ArciumDemo />;
 
   
   return <Landing />;

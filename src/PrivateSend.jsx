@@ -30,6 +30,7 @@ import {
 } from '@solana/spl-token';
 
 import { decoyReadBurst, sleep, randBetween } from './privacyUtils.js';
+import { useRangeGate } from './hooks/useRangeGate.js';
 import { encryptNote } from './cryptoNote.js';
 
 const RPC_URL = import.meta.env.VITE_RPC_URL || 'https://api.mainnet-beta.solana.com';
@@ -130,6 +131,27 @@ function PrivateSendInner() {
 
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState('');
+
+  // Range compliance
+  const { prescreen } = useRangeGate();
+  const [complianceOn, setComplianceOn] = useState(false);
+  const [compliance, setCompliance] = useState(null);
+  const [checking, setChecking] = useState(false);
+
+  const runCompliance = async () => {
+    if (!publicKey) return;
+    setChecking(true);
+    try {
+      const r = await prescreen(publicKey.toBase58(), "send");
+      setCompliance(r);
+      pushLog(`Compliance (${r.mode}): ${r.passed ? "PASS" : "BLOCK"}`);
+      if (!r.passed && r.reasons?.length) r.reasons.forEach(x => pushLog(`  - ${x}`));
+    } catch (e) {
+      pushLog(`Compliance error: ${e.message}`);
+    } finally {
+      setChecking(false);
+    }
+  };
   const [log, setLog] = useState([]);
 
   const pushLog = (line) => setLog((l) => [`[${ts()}] ${line}`, ...l]);
@@ -397,6 +419,35 @@ function PrivateSendInner() {
               onChange={(e) => setNote(e.target.value)}
               rows={2}
             />
+
+          {/* Range Compliance */}
+          <div className="mt-4 bg-white/5 border border-white/10 rounded-xl p-4">
+            <div className="flex items-center justify-between">
+              <label className="text-sm text-white/80 flex items-center gap-2">
+                <input type="checkbox" className="accent-emerald-500"
+                       checked={complianceOn}
+                       onChange={e => setComplianceOn(e.target.checked)} />
+                🛡️ Compliance Mode (Range)
+              </label>
+              <button onClick={runCompliance} disabled={!connected || checking}
+                className="text-xs px-3 py-1 rounded bg-white/10 hover:bg-white/20 border border-white/10 disabled:opacity-50">
+                {checking ? "Checking…" : "Check Now"}
+              </button>
+            </div>
+            {compliance && (
+              <div className="text-xs mt-2">
+                {compliance.passed
+                  ? <div className="text-green-400">✅ Passed ({compliance.mode}) · {compliance.country} · {compliance.ageDays}d old</div>
+                  : <div className="text-red-400">❌ Blocked ({compliance.mode})</div>}
+                {compliance.reasons?.length > 0 && (
+                  <ul className="list-disc ml-4 text-white/60 mt-1">
+                    {compliance.reasons.map((r,i) => <li key={i}>{r}</li>)}
+                  </ul>
+                )}
+              </div>
+            )}
+          </div>
+
           </div>
 
           {/* Encryption */}
@@ -419,9 +470,29 @@ function PrivateSendInner() {
             <div className="text-red-300 text-sm bg-red-900/30 border border-red-500/30 rounded-lg p-3">❌ {err}</div>
           )}
 
+
+          {/* Range Compliance */}
+          <div className="mt-4 bg-white/5 border border-white/10 rounded-xl p-4">
+            <div className="flex items-center justify-between">
+              <label className="text-sm text-white/80 flex items-center gap-2">
+                <input type="checkbox" className="accent-emerald-500" checked={complianceOn} onChange={e => setComplianceOn(e.target.checked)} />
+                🛡️ Compliance Mode (Range)
+              </label>
+              <button onClick={runCompliance} disabled={!connected || checking} className="text-xs px-3 py-1 rounded bg-white/10 hover:bg-white/20 border border-white/10 disabled:opacity-50">
+                {checking ? "Checking…" : "Check Now"}
+              </button>
+            </div>
+            {compliance && (
+              <div className="text-xs mt-2">
+                {compliance.passed ? <div className="text-green-400">✅ Passed ({compliance.mode}) · {compliance.country} · {compliance.ageDays}d old</div> : <div className="text-red-400">❌ Blocked ({compliance.mode})</div>}
+                {compliance.reasons?.length > 0 && <ul className="list-disc ml-4 text-white/60 mt-1">{compliance.reasons.map((r,i) => <li key={i}>{r}</li>)}</ul>}
+              </div>
+            )}
+          </div>
+
           <button
             onClick={handleSend}
-            disabled={!connected || busy}
+            disabled={!connected || busy || (complianceOn && !compliance?.passed)}
             className={`w-full py-3 rounded-lg font-semibold transition ${
               connected && !busy
                 ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500'
