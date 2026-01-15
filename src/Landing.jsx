@@ -18,14 +18,13 @@ export default function Landing() {
             <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-400 to-blue-500 grid place-content-center text-lg">🧹</div>
             <span className="font-bold text-xl">Rent<span className="text-emerald-400">Reclaim</span></span>
           </a>
-          <nav className="hidden md:flex items-center gap-8 text-sm text-white/70">
+          <nav className="hidden md:flex items-center gap-6 text-sm text-white/70">
             <a href="#how" className="hover:text-white transition">How it works</a>
             <a href="#pricing" className="hover:text-white transition">Pricing</a>
-            <a href="#safety" className="hover:text-white transition">Safety</a>
             <a href="#faq" className="hover:text-white transition">FAQ</a>
-            <a href="/send" className="hover:text-white transition text-purple-400">🔒 Private Send</a>
-            <a href="/decrypt" className="hover:text-white transition text-purple-400">🔓 Decrypt</a>
-            <a href="/launch" className="hover:text-white transition text-emerald-400">🪄 Stealth Launch</a>
+            <div className="h-4 w-px bg-white/20"></div>
+            <a href="/send" className="hover:text-white transition text-purple-400">🔒 Send</a>
+            <a href="/launch" className="hover:text-white transition text-emerald-400">🪄 Launch</a>
             <a href="/learn" className="hover:text-white transition text-yellow-400">📚 Learn</a>
             <a href="/privacy" className="hover:text-white transition text-blue-400">🔐 Ecosystem</a>
           </nav>
