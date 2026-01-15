@@ -292,7 +292,7 @@ function PrivateSendInner() {
     <div className="min-h-screen bg-gradient-to-b from-slate-900 to-slate-950 text-white">
       <div className="max-w-3xl mx-auto px-5 py-8">
         <div className="mb-4">
-          <button onClick={goBack} className="text-white/70 hover:text-white text-sm">← Back to RentReclaim</button>
+          <a href="/" className="text-white/70 hover:text-white text-sm">← Back to RentReclaim</a>
         </div>
 
         <h1 className="text-2xl font-bold mb-2">🔒 Private Send</h1>
