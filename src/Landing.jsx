@@ -4,13 +4,16 @@ const CONFIG = {
   appUrl: "/app",
 };
 
+
 export default function Landing() {
+  const [mobileMenu, setMobileMenu] = useState(false);
   return (
     <div className="min-h-screen bg-[#0a0a0f] text-white">
       <div className="fixed inset-0 pointer-events-none">
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl" />
       </div>
+
 
       <header className="sticky top-0 z-50 backdrop-blur-md border-b border-white/5">
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -28,11 +31,26 @@ export default function Landing() {
             <a href="/learn" className="hover:text-white transition text-yellow-400">📚 Learn</a>
             <a href="/privacy" className="hover:text-white transition text-blue-400">🔐 Ecosystem</a>
           </nav>
-          <a href={CONFIG.appUrl} className="px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 text-black font-semibold hover:opacity-90 transition inline-flex items-center gap-2">
-            Launch App
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-          </a>
+          <div className="flex items-center gap-3">
+            <button onClick={() => setMobileMenu(!mobileMenu)} className="md:hidden p-2 text-white/70 hover:text-white">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" /></svg>
+            </button>
+            <a href="/app" className="px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 text-black font-semibold hover:opacity-90 transition">Launch App</a>
+          </div>
         </div>
+        {mobileMenu && (
+          <div className="md:hidden bg-slate-900/95 border-t border-white/10 px-4 py-4 space-y-3">
+            <a href="/app" className="block py-2 text-white hover:text-emerald-400">🧹 RentReclaim</a>
+            <a href="/send" className="block py-2 text-purple-400 hover:text-purple-300">🔒 Private Send</a>
+            <a href="/launch" className="block py-2 text-emerald-400 hover:text-emerald-300">🪄 Stealth Launch</a>
+            <a href="/learn" className="block py-2 text-yellow-400 hover:text-yellow-300">📚 Learn</a>
+            <a href="/privacy" className="block py-2 text-blue-400 hover:text-blue-300">🔐 Ecosystem</a>
+            <a href="/radr" className="block py-2 text-white/70 hover:text-white">⚡ Radr Demo</a>
+            <a href="/arcium" className="block py-2 text-white/70 hover:text-white">🔒 Arcium Demo</a>
+            <a href="/inco" className="block py-2 text-white/70 hover:text-white">🔮 Inco Demo</a>
+            <a href="/privacycash" className="block py-2 text-white/70 hover:text-white">🔐 Privacy Cash</a>
+          </div>
+        )}
       </header>
 
       <section className="relative pt-20 pb-24">
