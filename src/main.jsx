@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import StealthLaunch from './StealthLaunch.jsx';
+import Learn from "./Learn.jsx";
 
 // Polyfills for Solana - MUST be before any Solana imports
 import { Buffer } from 'buffer';
@@ -23,6 +24,7 @@ function Router() {
   if (path === '/send') return <PrivateSend />;
   if (path === '/decrypt') return <DecryptTool />;
   if (path === '/launch') return <StealthLaunch />;
+  if (path === "/learn") return <Learn />;
 
   
   return <Landing />;

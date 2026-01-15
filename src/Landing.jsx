@@ -26,6 +26,7 @@ export default function Landing() {
             <a href="/send" className="hover:text-white transition text-purple-400">🔒 Private Send</a>
             <a href="/decrypt" className="hover:text-white transition text-purple-400">🔓 Decrypt</a>
             <a href="/launch" className="hover:text-white transition text-emerald-400">🪄 Stealth Launch</a>
+            <a href="/learn" className="hover:text-white transition text-yellow-400">📚 Learn</a>
           </nav>
           <a href={CONFIG.appUrl} className="px-4 py-2 text-sm rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-400 text-black font-semibold hover:opacity-90 transition inline-flex items-center gap-2">
             Launch App
