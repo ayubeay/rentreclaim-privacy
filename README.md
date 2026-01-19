@@ -126,3 +126,36 @@ MIT
 ---
 
 Built with ❤️ for the Solana Privacy Hackathon 2025
+
+## 🔍 Security Verification
+
+### How to verify we don't exfiltrate data
+
+We believe privacy tools should be verifiable. Here's how to confirm RentReclaim doesn't leak your data:
+
+**1. Network Tab Inspection**
+```
+1. Open DevTools (F12 or Cmd+Option+I)
+2. Go to Network tab
+3. Use any feature (scan, send, launch)
+4. Observe: Only Solana RPC calls — no external APIs receive your wallet data
+```
+
+**2. What you'll see:**
+- `POST` to your configured RPC (Helius/mainnet/devnet)
+- No calls to external analytics, tracking, or data collection endpoints
+- All encryption happens client-side via WebCrypto API
+
+**3. Source Code Audit**
+- All code is open source: [GitHub](https://github.com/ayubeay/rentreclaim-privacy)
+- No backend server — 100% client-side application
+- No wallet private keys ever leave your browser
+- Transactions signed locally via Phantom/Solflare
+
+**4. What we DON'T do:**
+- ❌ Store wallet addresses
+- ❌ Log transactions
+- ❌ Use analytics/tracking pixels
+- ❌ Send data to any server (except Solana RPC)
+- ❌ Access or request seed phrases
+
