@@ -34,6 +34,7 @@ import { useRangeGate } from './hooks/useRangeGate.js';
 import { encryptNote } from './cryptoNote.js';
 
 const RPC_URL = import.meta.env.VITE_RPC_URL || 'https://api.mainnet-beta.solana.com';
+const DEVNET_RPC_URL = "https://api.devnet.solana.com";
 const LAMPORTS_PER_SOL = 1_000_000_000;
 const MEMO_PROGRAM_ID = new PublicKey('MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr');
 
@@ -113,7 +114,7 @@ async function buildTokenTx({ from, to, mintPk, amountUnits, decimals, programId
   return tx;
 }
 
-function PrivateSendInner() {
+function PrivateSendInner({ isDevnet, setIsDevnet }) {
   const { connection } = useConnection();
   const { publicKey, sendTransaction, connected } = useWallet();
 
@@ -127,7 +128,6 @@ function PrivateSendInner() {
   const [privacy, setPrivacy] = useState(true);
   const [note, setNote] = useState('');
   const [encrypt, setEncrypt] = useState(false);
-  const [isDevnet, setIsDevnet] = useState(true); // Default devnet for safety
   const [pass, setPass] = useState('');
 
   const [busy, setBusy] = useState(false);
@@ -563,13 +563,17 @@ function PrivateSendInner() {
   );
 }
 
+
 export default function PrivateSend() {
+  const [isDevnet, setIsDevnet] = useState(true);
   const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
+  const endpoint = isDevnet ? DEVNET_RPC_URL : RPC_URL;
+  
   return (
-    <ConnectionProvider endpoint={RPC_URL}>
+    <ConnectionProvider endpoint={endpoint} key={endpoint}>
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
-          <PrivateSendInner />
+          <PrivateSendInner isDevnet={isDevnet} setIsDevnet={setIsDevnet} />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>
