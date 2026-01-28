@@ -125,7 +125,7 @@ MIT
 
 ---
 
-Built with ❤️ for the Solana Privacy Hackathon 2025
+Built with ❤️ for the Solana Privacy Hackathon 2026
 
 ## 🔍 Security Verification
 

@@ -184,7 +184,7 @@ export default function Learn() {
 
         {/* Footer */}
         <footer className="mt-12 text-center text-white/40 text-sm">
-          <p>Built for the Solana Privacy Hackathon 2025</p>
+          <p>Built for the Solana Privacy Hackathon 2026</p>
           <p className="mt-2">Educational content for the Encrypt.trade bounty</p>
         </footer>
       </div>
