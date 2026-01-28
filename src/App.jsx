@@ -755,7 +755,8 @@ export default function App() {
   const [showPrivacyInfo, setShowPrivacyInfo] = useState(false);
   const [finalTotals, setFinalTotals] = useState(null);
   
-  const [isDevnet, setIsDevnet] = useState(true);
+  const [isDevnet, _setIsDevnet] = useState(() => (localStorage.getItem("cluster") || "devnet") === "devnet");
+  const setIsDevnet = (v) => { localStorage.setItem("cluster", v ? "devnet" : "mainnet"); _setIsDevnet(v); };
 
   // Destiny numerology calculation
   const calculateDestiny = useCallback((address) => {

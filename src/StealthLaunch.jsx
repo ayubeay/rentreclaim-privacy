@@ -397,7 +397,8 @@ function StealthLaunchInner({ isDevnet, setIsDevnet }) {
 
 
 export default function StealthLaunch() {
-  const [isDevnet, setIsDevnet] = useState(true);
+  const [isDevnet, _setIsDevnet] = useState(() => (localStorage.getItem("cluster") || "devnet") === "devnet");
+  const setIsDevnet = (v) => { localStorage.setItem("cluster", v ? "devnet" : "mainnet"); _setIsDevnet(v); };
   const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
   const endpoint = isDevnet ? DEVNET_RPC_URL : RPC_URL;
   return (
