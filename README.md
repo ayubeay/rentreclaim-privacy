@@ -115,7 +115,7 @@ All transactions use standard Solana programs:
 ⚠️ **Obfuscation layer, not full anonymity** - Amounts and addresses remain visible on-chain. This adds privacy through timing obfuscation, transaction splitting, and wallet indirection. This is NOT a mixer or tumbler.
 
 ## Demo Video
-[Link to 3-minute demo video] <!-- Add your video link -->
+https://www.youtube.com/shorts/IWI9AZIZ8WI
 
 ## Screenshots
 See `/screenshots` folder for UI captures of each feature.
