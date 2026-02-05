@@ -40,6 +40,7 @@ export default function Landing() {
         </div>
         {mobileMenu && (
           <div className="md:hidden bg-slate-900/95 border-t border-white/10 px-4 py-4 space-y-3">
+            <a href="/" className="block py-2 text-white hover:text-emerald-400">🏠 Home</a>
             <a href="/app" className="block py-2 text-white hover:text-emerald-400">🧹 RentReclaim</a>
             <a href="/send" className="block py-2 text-purple-400 hover:text-purple-300">🔒 Private Send</a>
             <a href="/launch" className="block py-2 text-emerald-400 hover:text-emerald-300">🪄 Stealth Launch</a>
