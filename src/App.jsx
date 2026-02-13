@@ -755,7 +755,7 @@ export default function App() {
   const [showPrivacyInfo, setShowPrivacyInfo] = useState(false);
   const [finalTotals, setFinalTotals] = useState(null);
   
-  const [isDevnet, _setIsDevnet] = useState(() => (localStorage.getItem("cluster") || "devnet") === "devnet");
+  const isDevnet = false;
   const setIsDevnet = (v) => { localStorage.setItem("cluster", v ? "devnet" : "mainnet"); _setIsDevnet(v); };
 
   // Destiny numerology calculation
@@ -1058,22 +1058,6 @@ export default function App() {
         </div>
       </header>
       
-
-      {/* Devnet Safety Toggle */}
-      <div style={{maxWidth: "600px", margin: "0 auto 1rem", padding: "1rem 1.5rem", background: "rgba(234,179,8,0.1)", border: "1px solid rgba(234,179,8,0.3)", borderRadius: "12px"}}>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-          <div style={{display: "flex", alignItems: "center", gap: "0.5rem"}}>
-            <span>⚠️</span>
-            <span style={{fontSize: "0.9rem", color: "rgb(253,224,71)"}}>Test on devnet first</span>
-          </div>
-          <button
-            onClick={() => setIsDevnet(!isDevnet)}
-            style={{padding: "0.375rem 0.75rem", fontSize: "0.75rem", fontWeight: "600", borderRadius: "0.5rem", border: isDevnet ? "1px solid rgba(234,179,8,0.5)" : "1px solid rgba(239,68,68,0.5)", background: isDevnet ? "rgba(234,179,8,0.2)" : "rgba(239,68,68,0.2)", color: isDevnet ? "rgb(250,204,21)" : "rgb(248,113,113)", cursor: "pointer"}}
-          >
-            {isDevnet ? "🧪 Devnet" : "🔴 Mainnet"}
-          </button>
-        </div>
-      </div>
       <main className="main-content">
         <section className="hero">
           <h1 className="hero-title">
