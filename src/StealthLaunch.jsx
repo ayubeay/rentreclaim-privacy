@@ -286,21 +286,6 @@ function StealthLaunchInner({ isDevnet, setIsDevnet }) {
         <p className="text-white/60 mb-6">Create SPL tokens from a burner wallet with privacy features.</p>
         <div className="mb-6"><WalletMultiButton /></div>
 
-        {/* Devnet Safety Toggle */}
-        <div className="mb-6 p-4 rounded-xl bg-yellow-500/10 border border-yellow-500/30">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <span className="text-yellow-400">⚠️</span>
-              <span className="text-sm text-yellow-200">Test on devnet first</span>
-            </div>
-            <button
-              onClick={() => setIsDevnet(!isDevnet)}
-              className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition ${isDevnet ? "bg-yellow-500/20 text-yellow-400 border border-yellow-500/50" : "bg-red-500/20 text-red-400 border border-red-500/50"}`}
-            >
-              {isDevnet ? "🧪 Devnet" : "🔴 Mainnet"}
-            </button>
-          </div>
-        </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="bg-white/5 rounded-xl p-5 border border-white/10 space-y-4">
@@ -397,7 +382,7 @@ function StealthLaunchInner({ isDevnet, setIsDevnet }) {
 
 
 export default function StealthLaunch() {
-  const [isDevnet, _setIsDevnet] = useState(() => (localStorage.getItem("cluster") || "devnet") === "devnet");
+  const isDevnet = false;
   const setIsDevnet = (v) => { localStorage.setItem("cluster", v ? "devnet" : "mainnet"); _setIsDevnet(v); };
   const wallets = useMemo(() => [new PhantomWalletAdapter(), new SolflareWalletAdapter()], []);
   const endpoint = isDevnet ? DEVNET_RPC_URL : RPC_URL;
